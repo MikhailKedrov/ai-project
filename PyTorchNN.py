@@ -258,6 +258,7 @@ class Application(QtWidgets.QMainWindow):  # клас оконного прил�
         self.pc.resize(0,0)
 
     def open_image(self): # загрузка изображения
+        self.loaded = False
         try:
             self.filename = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', "Image files (*.jpg *.gif *.png)")[0]
 
