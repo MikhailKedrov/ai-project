@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+import os
 from torch.autograd import Variable
 import torch.nn.functional as F
 import torch.optim as optim
@@ -14,7 +15,6 @@ import imagesize
 import cv2
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
-
 
 
 class CNN1(torch.nn.Module):  # 1C1P2F
@@ -248,7 +248,7 @@ class Application(QtWidgets.QMainWindow):  # клас оконного прил�
         self.label_image = None
         self.loaded = False
         self.CNN = CNN4()
-        self.CNN.load_state_dict(torch.load('/Users/mikhaildelba/PycharmProjects/ScuteN/model4'))
+        self.CNN.load_state_dict(torch.load(sys.path[0].replace("/base_library.zip", '') + '/model4'))
         self.r1 = False
         self.r2 = False
         self.r3 = False
@@ -309,13 +309,13 @@ class Application(QtWidgets.QMainWindow):  # клас оконного прил�
 
         self.settingsWin.label_image = QtWidgets.QLabel(self.settingsWin.ui.graphicsView)
         if self.settingsWin.ui.radioButton.isChecked():
-            self.settingsWin.filename = '/Users/mikhaildelba/PycharmProjects/ScuteN/1C1P2F.png'
+            self.settingsWin.filename = (sys.path[0].replace("/base_library.zip", '') + '/1C1P2F.png')
         if self.settingsWin.ui.radioButton_2.isChecked():
-            self.settingsWin.filename = '/Users/mikhaildelba/PycharmProjects/ScuteN/2C1P2F.png'
+            self.settingsWin.filename = (sys.path[0].replace("/base_library.zip", '') + '/2C1P2F.png')
         if self.settingsWin.ui.radioButton_3.isChecked():
-            self.settingsWin.filename = '/Users/mikhaildelba/PycharmProjects/ScuteN/1C2P2F.png'
+            self.settingsWin.filename = (sys.path[0].replace("/base_library.zip", '') + '/1C2P2F.png')
         if self.settingsWin.ui.radioButton_4.isChecked():
-            self.settingsWin.filename = '/Users/mikhaildelba/PycharmProjects/ScuteN/2C2P2F.png'
+            self.settingsWin.filename = (sys.path[0].replace("/base_library.zip", '') + '/2C2P2F.png')
         self.settingsWin.label_image.setPixmap(
             QtGui.QPixmap.fromImage(QtGui.QImage(self.settingsWin.filename).scaledToWidth(self.settingsWin.ui.graphicsView.width())))
         self.settingsWin.label_image.show()
@@ -346,7 +346,7 @@ class Application(QtWidgets.QMainWindow):  # клас оконного прил�
             self.r3 = False
             self.r4 = False
             self.CNN = CNN1()
-            self.CNN.load_state_dict(torch.load('/Users/mikhaildelba/PycharmProjects/ScuteN/model'))
+            self.CNN.load_state_dict(torch.load(sys.path[0].replace("/base_library.zip", '') + '/model'))
 
         if self.settingsWin.ui.radioButton_2.isChecked():
             self.r2 = True
@@ -354,16 +354,15 @@ class Application(QtWidgets.QMainWindow):  # клас оконного прил�
             self.r3 = False
             self.r4 = False
             self.CNN = CNN2()
-            self.CNN.load_state_dict(torch.load('/Users/mikhaildelba/PycharmProjects/ScuteN/model2'))
+            self.CNN.load_state_dict(torch.load(sys.path[0].replace("/base_library.zip", '')+ '/model2'))
 
         if self.settingsWin.ui.radioButton_3.isChecked():
-
             self.r3 = True
             self.r1 = False
             self.r2 = False
             self.r4 = False
             self.CNN = CNN3()
-            self.CNN.load_state_dict(torch.load('/Users/mikhaildelba/PycharmProjects/ScuteN/model3'))
+            self.CNN.load_state_dict(torch.load(sys.path[0].replace("/base_library.zip", '') + '/model3'))
 
         if self.settingsWin.ui.radioButton_4.isChecked():
 
@@ -372,7 +371,7 @@ class Application(QtWidgets.QMainWindow):  # клас оконного прил�
             self.r2 = False
             self.r3 = False
             self.CNN = CNN4()
-            self.CNN.load_state_dict(torch.load('/Users/mikhaildelba/PycharmProjects/ScuteN/model4'))
+            self.CNN.load_state_dict(torch.load(sys.path[0].replace("/base_library.zip", '') + '/model4'))
 
         self.settingsWin.close()
         return self.CNN
@@ -382,7 +381,6 @@ class Application(QtWidgets.QMainWindow):  # клас оконного прил�
 seed = 42
 np.random.seed(seed)
 torch.manual_seed(seed)
-
 
 def pre_image(cv2im, resize_im=True):  # предварительная работа над изображением
 
